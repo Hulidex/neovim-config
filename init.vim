@@ -15,9 +15,44 @@ call plug#begin('~/.local/share/nvim/plugged')
 
 " Show a list of directories and files
 Plug 'scrooloose/nerdtree'
+" Comment lines easily
+Plug 'scrooloose/nerdcommenter'
+
+" Autocomplete features
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
+" Surround text with parentheses, brackets, quotes, XML tags, and more
+" See syntax -> https://github.com/tpope/vim-surround
+Plug 'tpope/vim-surround'
+" wisely add close code blocks in Ruby, and many other languages
+Plug 'tpope/vim-endwise'
+
+" Insert or delete brackets, parens, quotes in pair.
+Plug 'jiangmiao/auto-pairs'
+
+" Highlight unwanted withespaces
+Plug 'bronson/vim-trailing-whitespace'
+
 call plug#end()
+
+" ---------- GENERAL CONFIG----------
+" Show line numbers
+set number
+
+" Self explanatory
+set autoindent
+
+" Use SPACES insted of TABS
+set expandtab
+
+" Maximum width of a tab character
+set tabstop=2
+" Same as before but apply to INSERT MODE
+set softtabstop=2
+set shiftwidth=2
+
+" When searching go to first occurrence
+set incsearch
 
 " ---------- NERDTREE ----------
 " Bind <C-n> to open nerdtree
@@ -37,4 +72,18 @@ let g:deoplete#enable_at_startup = 1
 
 " list at maximum 100 elements (default 500)
 call deoplete#custom#option('max_list', 100)
+
+" ---------- NERDCOMMENTER----------
+"  With nerdcommenter when you reach 80 characters in a line, automatically it
+"  creates a new one four you
+
+"  Change mapleader from '\' to ',', I'm doing this because my keyboard
+
+"  mapping is Spanish
+let mapleader=","
+
+" By default you only have one second to press the nerdcommenter command
+set timeout timeoutlen=3000
+
+filetype plugin on
 
