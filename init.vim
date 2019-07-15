@@ -42,6 +42,9 @@ Plug 'bronson/vim-trailing-whitespace'
 " Vim plugin wich shows a git diff
 Plug 'airblade/vim-gitgutter'
 
+" This plugin provides a start screen for Neovim
+Plug 'mhinz/vim-startify'
+
 " Change NEOVIM appearance:
 " Colors:
 Plug 'mhartington/oceanic-next'
