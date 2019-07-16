@@ -6,6 +6,7 @@
 " - vim-plug (plugin manager) -> https://github.com/junegunn/vim-plug
 " - deople plugin has a certain requirements -> https://github.com/Shougo/deoplete.nvim#requirements
 " - deoplete can complete multiples languages -> https://github.com/Shougo/deoplete.nvim/wiki/Completion-Sources
+" - go to ALE section(look for it below) to install  and configure linters
 " - vim-devicons and oceanic-next need to install a nerd compatible font (see
 "   below)
 " To reload vim config -> :source ~/.config/nvim/init.vim
@@ -16,10 +17,10 @@
 " First argument is nvim plugin PATH
 call plug#begin('~/.local/share/nvim/plugged')
 
-" Show a list of directories and files
-Plug 'scrooloose/nerdtree'
 " Show git changes on nerd-tree
 Plug 'Xuyuanp/nerdtree-git-plugin'
+" Show a list of directories and files
+Plug 'scrooloose/nerdtree'
 " Comment lines easily
 Plug 'scrooloose/nerdcommenter'
 
@@ -27,11 +28,18 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'deoplete-plugins/deoplete-jedi'
 
+" Check syntax
+Plug 'w0rp/ale'
 " Surround text with parentheses, brackets, quotes, XML tags, and more
 " See syntax -> https://github.com/tpope/vim-surround
 Plug 'tpope/vim-surround'
 " wisely add close code blocks in Ruby, and many other languages
 Plug 'tpope/vim-endwise'
+" A Git wrapper so awesome, it should be illegal
+Plug 'tpope/vim-fugitive'
+
+" Enable repeating supported plugin maps with "."
+Plug 'tpope/vim-repeat'
 
 " Insert or delete brackets, parens, quotes in pair.
 Plug 'jiangmiao/auto-pairs'
@@ -105,17 +113,24 @@ set list
 " Set invisible characters with an specific character
 set listchars=eol:➥
 
+" Save session on quitting Vim
+autocmd VimLeave * mksession! ~/.nvimsessions/last_session.vim
+
 " ---------- NERDTREE ----------
 " Bind <C-n> to open nerdtree
 map  <C-n> :NERDTreeToggle<CR>
 
 " Open nerdtree if vim is open without a file
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+" This config is interfering with startify plugin,
+" so i comment it in favor of startify
+" autocmd StdinReadPre * let s:std_in=1
+" autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
 " Close vim if the only tab left open is nerdtree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
+" Close nerd-tree before close vim
+autocmd VimLeave * NERDTreeClose
 " ---------- DEOPLE.NVIM----------
 " see :help deoplete-options for more options
 " Use deople
@@ -141,6 +156,20 @@ set timeout timeoutlen=3000
 
 filetype plugin on
 
+" ---------- ALE----------
+" Install 'flake8' linter first -> http://flake8.pycqa.org/en/latest/ 
+" Specify linters for languages
+let g:ale_linters = {
+      \  'python': ['flake8']
+      \}
+" Force ale to only lint files specified on 'ale_linters' (watch above)
+let g:ale_linters_explicit = 1
+
+" use ale integrated with airline
+let g:airline#extensions#ale#enabled = 1
+
+let g:ale_lint_on_text_changed = 'always'
+let g:ale_lint_delay = 3000
 " ---------- VIM-GITGUTTER----------
 " Diff markers appear automatically, by with a delay governed by vim's
 " updatetime, default value is 4000ms (4 seconds), I prefer to put it to 100ms
