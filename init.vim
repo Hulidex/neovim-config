@@ -1,4 +1,3 @@
-"-------------------------------------------------------------------------------
 " Author: Jolu Izquierdo
 " To run this neovim config you have to install first:
 " - python2, python3, python-pip2 and python-pip3 check :help provider-python
@@ -47,6 +46,9 @@ Plug 'jiangmiao/auto-pairs'
 " Highlight unwanted withespaces
 Plug 'bronson/vim-trailing-whitespace'
 
+Plug 'sheerun/vim-polyglot'
+Plug 'digitaltoad/vim-pug'
+"Plug 'posva/vim-vue'
 " Vim plugin wich shows a git diff
 Plug 'airblade/vim-gitgutter'
 
@@ -55,9 +57,12 @@ Plug 'mhinz/vim-startify'
 
 " Change NEOVIM appearance:
 " Colors:
-Plug 'mhartington/oceanic-next'
+"Plug 'mhartington/oceanic-next'
+Plug 'tyrannicaltoucan/vim-deep-space'
+
 " lean & mean status/tabline for vim that's light as air
 Plug 'vim-airline/vim-airline'
+
 " Icons for popular vim plugins
 " Need to install a nerd compatible font:
 " https://github.com/ryanoasis/nerd-fonts#font-installation
@@ -65,6 +70,12 @@ Plug 'vim-airline/vim-airline'
 "   - clone repo with option --depth=1
 "   - run script ./install Hack
 Plug 'ryanoasis/vim-devicons'
+
+" A vim plugin to display the indention levels with thin vertical lines
+Plug 'Yggdroot/indentLine'
+
+" Preview colours in source code while editing
+Plug 'ap/vim-css-color'
 
 call plug#end()
 
@@ -114,7 +125,7 @@ set list
 set listchars=eol:➥
 
 " Save session on quitting Vim
-autocmd VimLeave * mksession! ~/.nvimsessions/last_session.vim
+" autocmd VimLeave * mksession! ~/.nvimsessions/last_session.vim
 
 " ---------- NERDTREE ----------
 " Bind <C-n> to open nerdtree
@@ -131,6 +142,7 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 
 " Close nerd-tree before close vim
 autocmd VimLeave * NERDTreeClose
+
 " ---------- DEOPLE.NVIM----------
 " see :help deoplete-options for more options
 " Use deople
@@ -157,10 +169,12 @@ set timeout timeoutlen=3000
 filetype plugin on
 
 " ---------- ALE----------
-" Install 'flake8' linter first -> http://flake8.pycqa.org/en/latest/ 
+" Install 'flake8' linter first -> http://flake8.pycqa.org/en/latest/
 " Specify linters for languages
 let g:ale_linters = {
-      \  'python': ['flake8']
+      \  'python': ['flake8'],
+      \  'ruby': ['rubocop'],
+      \  'javascript': ['eslint']
       \}
 " Force ale to only lint files specified on 'ale_linters' (watch above)
 let g:ale_linters_explicit = 1
@@ -170,6 +184,7 @@ let g:airline#extensions#ale#enabled = 1
 
 let g:ale_lint_on_text_changed = 'always'
 let g:ale_lint_delay = 3000
+
 " ---------- VIM-GITGUTTER----------
 " Diff markers appear automatically, by with a delay governed by vim's
 " updatetime, default value is 4000ms (4 seconds), I prefer to put it to 100ms
@@ -179,19 +194,31 @@ set updatetime=100
 " showing signs
 let g:gitgutter_max_signs = 1000
 
-" ---------- OCEANIC NEXT (FONT)----------
-if (has("termguicolors"))
-  set termguicolors
-endif
+" ---------- OCEANIC NEXT (FONT) NOT USED----------
+" if (has("termguicolors"))
+  " set termguicolors
+" endif
 
-syntax enable
+" syntax on
 
-let g:oceanic_next_terminal_bold=1
-let g:oceanic_next_terminal_italic=1
-let g:airline_theme='oceanicnext'
-colorscheme OceanicNext
+" let g:oceanic_next_terminal_bold=1
+" let g:oceanic_next_terminal_italic=1
+" let g:airline_theme='oceanicnext'
+" colorscheme OceanicNext
+
+" ---------- DEEP-SPACE (FONT)----------
+syntax on
+set background=dark
+set termguicolors
+colorscheme deep-space
+let g:deepspace_italics=1
+let g:airline_theme='deep_space'
 
 " ---------- AIRLINE ----------
 "  Show a smarter tab upper line
 let g:airline#extensions#tabline#enabled = 1
+
+" ---------- INDENTLINE ----------
+" Each indent level has a distinct character:
+let g:indentLine_char_list = ['|', '¦', '┆', '┊']
 
