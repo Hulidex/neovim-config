@@ -46,9 +46,19 @@ Plug 'jiangmiao/auto-pairs'
 " Highlight unwanted withespaces
 Plug 'bronson/vim-trailing-whitespace'
 
+" PLUGINS FOR MANAGE BUFFERS:
+" Vim plugin to list, select and switch between buffers. <Paste>
+Plug 'jeetsukumaran/vim-buffergator'
+
+" Fuzzy file, buffer, mru, tag, etc finder
+Plug 'ctrlpvim/ctrlp.vim'
+
+" Syntax support for multiples languages
 Plug 'sheerun/vim-polyglot'
+
+" Syntax support for pug files
 Plug 'digitaltoad/vim-pug'
-"Plug 'posva/vim-vue'
+
 " Vim plugin wich shows a git diff
 Plug 'airblade/vim-gitgutter'
 
@@ -105,7 +115,7 @@ set incsearch
 set mouse=a
 
 " Show a vertical line to know when you have to jump to the next line
-set colorcolumn=95
+set colorcolumn=100
 
 " Don't create .swp files!
 set noswapfile
@@ -121,15 +131,30 @@ set autoread
 
 " Display invisible characters
 set list
+
 " Set invisible characters with an specific character
 set listchars=eol:➥
 
 " Save session on quitting Vim
-" autocmd VimLeave * mksession! ~/.nvimsessions/last_session.vim
+autocmd VimLeave * mksession! ~/.nvimsessions/last_session.vim
 
+" Restore session
+nmap <leader>rs :source ~/.nvimsessions/last_session.vim<CR>
+
+" Split windows right instead of left
+set splitright
+
+" MAP OTHER KEYS
+nmap <leader>wh :wincmd h<CR>
+nmap <leader>wj :wincmd j<CR>
+nmap <leader>wk :wincmd k<CR>
+nmap <leader>wl :wincmd l<CR>
+nmap <leader>w- :split<CR>
+nmap <leader>w\ :vsplit<CR>
+nmap <leader>wq :quit<CR>
 " ---------- NERDTREE ----------
 " Bind <C-n> to open nerdtree
-map  <C-n> :NERDTreeToggle<CR>
+nmap  <leader>nt :NERDTreeToggle<CR>
 
 " Open nerdtree if vim is open without a file
 " This config is interfering with startify plugin,
@@ -193,6 +218,47 @@ set updatetime=100
 " By default when more than 500 changes are made into a file gitgutter stop
 " showing signs
 let g:gitgutter_max_signs = 1000
+
+" ---------- CTRLP ---------
+" To see options check
+" https://joshldavis.com/2014/04/05/vim-tab-madness-buffers-vs-tabs/
+" Set CtrlP working directory to the nearest ancestor of the current file that
+" contains one of these directories or files: .git .hg .svn .bzr
+let g:ctrlp_working_path_mode = 'r'
+
+" Exclude files and directories
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/]\.(git)$',
+  \ 'file': '\v\.(obj|exe|so|dll)$',
+  \ }
+
+" Map CtrlP keys:
+nmap <leader>p :CtrlP<CR>
+nmap <leader>bb :CtrlPBuffer<CR>
+nmap <leader>bm :CtrlPMRU<CR>
+nmap <leader>ba :CtrlPMixed<CR>
+
+" ---------- VIM-BUFFERGATOR ---------
+" Use the right side of the screen
+let g:buffergator_viewport_split_policy = 'R'
+
+" I want my own keymappings...
+let g:buffergator_suppress_keymaps = 1
+
+" Go to the previous buffer open
+nmap <leader>bj :BuffergatorMruCyclePrev<cr>
+
+" Go to the next buffer open
+nmap <leader>bk :BuffergatorMruCycleNext<cr>
+
+" View the entire list of buffers open
+nmap <leader>bl :BuffergatorOpen<cr>
+
+" To open a new empty buffer
+nmap <leader>T :enew<cr>
+
+" Close the current buffer and move to the previous one
+nmap <leader>bq :bp <BAR> bd #<cr>
 
 " ---------- OCEANIC NEXT (FONT) NOT USED----------
 " if (has("termguicolors"))
