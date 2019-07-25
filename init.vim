@@ -93,6 +93,10 @@ call plug#end()
 " Self explanatory
 set encoding=UTF-8
 
+" Change mapleader from '\' to ',', I'm doing this because my keyboard
+" mapping is Spanish
+let mapleader=","
+
 " Show line numbers
 set number
 
@@ -180,10 +184,6 @@ call deoplete#custom#option('max_list', 100)
 " With nerdcommenter when you reach 80 characters in a line, automatically it
 " creates a new one four you
 
-" Change mapleader from '\' to ',', I'm doing this because my keyboard
-" mapping is Spanish
-let mapleader=","
-
 " Set a whitespace after the commentary
 
 let NERDSpaceDelims=1
@@ -199,6 +199,7 @@ filetype plugin on
 let g:ale_linters = {
       \  'python': ['flake8'],
       \  'ruby': ['rubocop'],
+      \  'pug': ['pug-lint'],
       \  'javascript': ['eslint']
       \}
 " Force ale to only lint files specified on 'ale_linters' (watch above)
@@ -282,7 +283,7 @@ let g:airline_theme='deep_space'
 
 " ---------- AIRLINE ----------
 "  Show a smarter tab upper line
-let g:airline#extensions#tabline#enabled = 1
+"let g:airline#extensions#tabline#enabled = 1
 
 " ---------- INDENTLINE ----------
 " Each indent level has a distinct character:
