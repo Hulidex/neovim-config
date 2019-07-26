@@ -199,11 +199,10 @@ filetype plugin on
 let g:ale_linters = {
       \  'python': ['flake8'],
       \  'ruby': ['rubocop'],
-      \  'pug': ['pug-lint'],
       \  'javascript': ['eslint']
       \}
 " Force ale to only lint files specified on 'ale_linters' (watch above)
-let g:ale_linters_explicit = 1
+" let g:ale_linters_explicit = 1
 
 " use ale integrated with airline
 let g:airline#extensions#ale#enabled = 1
