@@ -40,14 +40,20 @@ Plug 'tpope/vim-fugitive'
 " Enable repeating supported plugin maps with "."
 Plug 'tpope/vim-repeat'
 
+" Rename and other stuff with tabs
+Plug 'gcmt/taboo.vim'
 " Insert or delete brackets, parens, quotes in pair.
 Plug 'jiangmiao/auto-pairs'
 
 " Highlight unwanted withespaces
 Plug 'bronson/vim-trailing-whitespace'
 
+" Preview markdown on your modern browser with synchronised scrolling and flexible configuration
+" https://github.com/iamcco/markdown-preview.nvim
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
+
 " PLUGINS FOR MANAGE BUFFERS:
-" Vim plugin to list, select and switch between buffers. <Paste>
+" Vim plugin to list, select and switch between buffers.
 Plug 'jeetsukumaran/vim-buffergator'
 
 " Fuzzy file, buffer, mru, tag, etc finder
@@ -189,9 +195,32 @@ call deoplete#custom#option('max_list', 100)
 let NERDSpaceDelims=1
 
 " By default you only have one second to press the nerdcommenter command
-set timeout timeoutlen=3000
+set timeout timeoutlen=1500
 
 filetype plugin on
+
+" ---------- TABOO----------
+
+" terminal style tabs even in gui versions
+set guioptions-=e
+
+" Taboo is able to remember tab names when you save the current session but you are required
+" to set the following option
+set sessionoptions+=tabpages,globals
+
+" ---------- MARDOWN-PREVIEW----------
+" set to 1, nvim will open the preview window after entering the markdown buffer
+" default: 0
+let g:mkdp_auto_start = 1
+
+" set to 1, the vim will refresh markdown when save the buffer or
+" leave from insert mode, default 0 is auto refresh markdown as you edit or
+" move the cursor
+" default: 0
+let g:mkdp_refresh_slow = 1
+
+" use a custom port to start server or random for empty
+let g:mkdp_port = '8080'
 
 " ---------- ALE----------
 " Install 'flake8' linter first -> http://flake8.pycqa.org/en/latest/
