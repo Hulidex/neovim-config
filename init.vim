@@ -99,6 +99,17 @@ call plug#end()
 " Self explanatory
 set encoding=UTF-8
 
+" Set font and font size for GUI (tested on neovim-qt)
+let s:fontsize = 10
+function! AdjustFontSize(amount)
+  let s:fontsize = s:fontsize+a:amount
+  :execute "GuiFont! DejaVu Sans Mono:h" . s:fontsize
+endfunction
+
+" Shortcuts for changing font size
+noremap <C-ScrollWheelUp> :call AdjustFontSize(1)<CR>
+noremap <C-ScrollWheelDown> :call AdjustFontSize(-1)<CR>
+
 " Change mapleader from '\' to ',', I'm doing this because my keyboard
 " mapping is Spanish
 let mapleader=","
@@ -247,6 +258,13 @@ set updatetime=100
 " By default when more than 500 changes are made into a file gitgutter stop
 " showing signs
 let g:gitgutter_max_signs = 1000
+
+" Jump between hunks
+nmap <leader>gh :GitGutterNextHunk<CR>
+nmap <leader>gH :GitGutterPrevHunk<CR>
+
+" Fold all unchanged lines, leaving just the hunks visible
+nmap <leader>gf :GitGutterFold<CR>
 
 " ---------- CTRLP ---------
 " To see options check
