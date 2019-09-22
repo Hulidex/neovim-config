@@ -239,6 +239,10 @@ let g:mkdp_refresh_slow = 1
 " use a custom port to start server or random for empty
 let g:mkdp_port = '8080'
 
+" ---------- POLYGLOT ---------
+let g:polyglot_disabled = ['markdown']
+
+" let g:vim_markdow_folding_disabled = 1
 " ---------- ALE----------
 " Install 'flake8' linter first -> http://flake8.pycqa.org/en/latest/
 " Specify linters for languages
